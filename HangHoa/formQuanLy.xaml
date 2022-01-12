@@ -1,0 +1,885 @@
+﻿<Window x:Class="HangHoa.formQuanLy"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:HangHoa"
+        mc:Ignorable="d"
+        Title="formQuanLy" Height="600" Width="975" 
+                WindowStartupLocation="CenterScreen"
+                Loaded="Sanpham_Loaded">
+    <Grid>
+        <DockPanel >
+            <StackPanel DockPanel.Dock="Top">
+                <StackPanel Orientation="Horizontal"
+                            Margin="5">
+                    <TextBlock Text="Đình Thơ"
+                               FontSize="25" 
+                               FontWeight="Bold" 
+                               Foreground="#00FF00" 
+                               ToolTip="Quản lý kho" 
+                               Margin="50 10 0 0"/>
+                    <Menu Margin="45 0 0 0">
+                        <Image Source="F:\Visual studio 2019\HangHoa\HangHoa\Resources\1.png"
+                               Height="27"/>
+                        <MenuItem Header="Chủ đề"/>
+                        <Image Source="F:\Visual studio 2019\HangHoa\HangHoa\Resources\icon-tu-van.png" 
+                               Height="27"/>
+                        <MenuItem Header="Hỗ trợ">
+                            <MenuItem Header="Hướng dẫn sử dụng"/>
+                            <MenuItem Header="Tải app về smatphone"/>
+                        </MenuItem>
+                        <Image Source="F:\Visual studio 2019\HangHoa\HangHoa\Resources\HopThu.jpg"  
+                               Height="27"/>
+                        <MenuItem Header="Hộp thư"/>
+                        <MenuItem Header="Thiết lập">
+                            <MenuItem Header="Cài đặt"/>
+                            <MenuItem Header="Quản lý mẫu in"/>
+                            <MenuItem Header="Quản lý người dùng"/>
+                            <MenuItem Header="Lịch sử thao tác"/>
+                        </MenuItem>
+                        <Image Source=
+                            "F:\Visual studio 2019\HangHoa\HangHoa\Resources\caidac.png" 
+                               Height="32"/>
+                        <MenuItem Header="Tài khoản" 
+                                  Foreground="Black">
+                            <MenuItem Header="Thông tin" 
+                                      Click="MenuThongTinTK_Click"/>
+                            <MenuItem Header="Đăng xuất" 
+                                      Name="menuItem_DangXuat" 
+                                      Click="menuItem_DangXuat_Click"/>
+                        </MenuItem>
+                        <Image Source=
+                            "F:\Visual studio 2019\HangHoa\HangHoa\Resources\taiKhoan.png" 
+                               Height="27"/>
+                    </Menu>
+                </StackPanel>
+                <TabControl Name="Tabs1" 
+                            TabStripPlacement="Top"  
+                            BorderBrush="LightBlue" 
+                            Margin="10,10,7.6,10" 
+                            FontSize="16" 
+                            Height="500">                    
+                    <TabItem Header="Kho hàng"  
+                             Background="CornflowerBlue" 
+                             Height="40" Width="100" 
+                             HorizontalAlignment="Right" 
+                             VerticalAlignment="Top">
+                        <Grid>
+                            <Image Source=
+                                   "F:\Visual studio 2019\HangHoa\HangHoa\Resources\nenxanh.jpg" 
+                                   Stretch="Fill"/>
+                            <StackPanel Orientation="Vertical">
+                                <StackPanel Orientation="Horizontal" 
+                                            DockPanel.Dock="Top" 
+                                            Margin="5">
+                                    <Menu Height="40" 
+                                          Margin="10">
+                                        <MenuItem Header="Xuất Nhập" 
+                                                  Background="AliceBlue" 
+                                                  ToolTip="Nhập Xuất Hàng" 
+                                                  Foreground="Black" 
+                                                  FontSize="20">
+                                            
+                                            <MenuItem Header="Nhập hàng" 
+                                                      Name="item_NhapHang" 
+                                                      Click="item_NhapHang_Click" />
+                                            <MenuItem Header="Xuất hàng" 
+                                                      Name="item_XuatHang" 
+                                                      Click="item_XuatHang_Click"/>
+                                        </MenuItem>
+                                    </Menu>
+                                    <TextBox x:Name="txtMaSP_Sữa" 
+                                             Width="150" 
+                                             Text="{Binding ElementName=Data, 
+                                                    Path=SelectedItem.MaSanPham,
+                                                    Mode=OneWay}" 
+                                             Visibility="Hidden"/>
+                                    <Button x:Name="btnLammoi" 
+                                            Content="Làm mới" 
+                                            Margin="170 0 80 0"  
+                                            Width="90" Height="40"  
+                                            Background="White" 
+                                            Foreground="Black" 
+                                            Click="btnLammoi_Click"/>
+                                    <Button x:Name="btnXoa" 
+                                            Content="Xóa" 
+                                            Width="90" 
+                                            Height="40"  
+                                            Background="White" 
+                                            Foreground="Black" 
+                                            Click="btnXoa_Click"/>
+                                    <Button x:Name="btnSua" 
+                                            Content="Sửa" 
+                                            Margin="70 0"  
+                                            Width="90" Height="40"  
+                                            Background="White" 
+                                            Foreground="Black" 
+                                            Click="btnSua_Click_1"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <StackPanel Orientation="Vertical" 
+                                                DockPanel.Dock="Top">
+
+                                        <StackPanel Orientation="Horizontal"
+                                                    Margin="10 0">
+                                            <ComboBox x:Name="cboTenSanPhamTimkiem" 
+                                                      materialDesign:HintAssist.Hint="Tên sản phẩm" 
+                                                      Foreground="Black" 
+                                                      BorderBrush="Black"
+                                                      Margin="10"/>
+                                            <ComboBox x:Name="cboMaCongTyTimkiem" 
+                                                      materialDesign:HintAssist.Hint="Mã công ty"
+                                                      Foreground="Black" 
+                                                      BorderBrush="Black"
+                                                      Margin="10"/>
+                                            <DatePicker Name="dateNgaynhapTimkiem" 
+                                                        materialDesign:HintAssist.Hint="Ngày nhập" 
+                                                        Margin="10"
+                                                        Width="100"/>
+                                            <Button x:Name="btnTim" 
+                                                    Content="Tìm Kiếm" 
+                                                    Background="Bisque"
+                                                    Foreground="Black" 
+                                                    Margin="50 0" 
+                                                    Click="btnTim_Click"/>
+                                        </StackPanel>
+                                        <StackPanel>
+                                            <DataGrid DockPanel.Dock="Bottom"  
+                                                      AutoGenerateColumns="False" 
+                                                      x:Name="Data"  
+                                                      Height="300" 
+                                                      Margin="20 20 0 10" 
+                                                      Width="580">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Mã sản phẩm"  
+                                                                        Binding="{Binding MaSanPham}"/>
+                                                    <DataGridTextColumn Header="Tên sản phẩm"  
+                                                                        Binding="{Binding TenSanPham}"/>
+                                                    <DataGridTextColumn Header="Số lượng"  
+                                                                        Binding="{Binding SoLuong}"/>
+                                                    <DataGridTextColumn Header="Đơn Giá"  
+                                                                        Binding="{Binding DonGia}"/>
+                                                    <DataGridTextColumn Header="Ngày nhập" 
+                                                                        Binding="{Binding NgayNhap,
+                                                                        StringFormat='dd/MM/yyyy'}"/>
+                                                    <DataGridTextColumn Header="Mã công ty" 
+                                                                        Binding="{Binding MaCongTy}"/>                                                    
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel>
+                                        <GroupBox Header="Thông tin" 
+                                                  Margin="20 35 0 0" 
+                                                  FontSize="20">
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Margin="7">
+                                                    <TextBlock Text="Mã sản phẩm"
+                                                               Margin="0 10"/>
+                                                    <TextBlock Text="Tên sản phẩm"/>
+                                                    <TextBlock Text="Số Lượng" 
+                                                               Margin="0 10"/>
+                                                    <TextBlock Text="Mã công ty"
+                                                               Margin="0 10"/>
+                                                    <TextBlock Text="Ngày nhập" 
+                                                               Margin="0 15"/>
+                                                    <TextBlock Text="Đơn giá" 
+                                                               Margin="0 5"/>
+                                                </StackPanel>
+                                                <StackPanel Margin="5 0 0 0">
+                                                    <TextBox x:Name="txtMasanpham" 
+                                                             Background="#EEEEEE"
+                                                             Foreground="Black"  
+                                                             BorderBrush="Black" 
+                                                             Width="140"
+                                                             Margin="5" 
+                                                             Text="{Binding ElementName=Data, 
+                                                                    Path=SelectedItem.MaSanPham,
+                                                                    Mode=OneWay}"/>
+                                                    <TextBox x:Name="txtTensanpham" 
+                                                             Background="#EEEEEE" 
+                                                             Foreground="Black" 
+                                                             BorderBrush="Black" 
+                                                             Margin="5" 
+                                                             Text="{Binding ElementName=Data, 
+                                                                    Path=SelectedItem.TenSanPham,   
+                                                                    Mode=OneWay}"/>
+                                                    <TextBox x:Name="txtSoLuong" 
+                                                             Background="#EEEEEE" 
+                                                             Foreground="Black"  
+                                                             BorderBrush="Black" 
+                                                             Margin="5" 
+                                                             Text="{Binding ElementName=Data, 
+                                                                    Path=SelectedItem.SoLuong, 
+                                                                    Mode=OneWay}"/>
+                                                    <ComboBox x:Name="cboMaCongTy" 
+                                                              Background="#EEEEEE"
+                                                              Foreground="Black"  
+                                                              BorderBrush="Black" 
+                                                              Margin="5" 
+                                                              Text="{Binding ElementName=Data, 
+                                                                     Path=SelectedItem.MaCongTy, 
+                                                                     Mode=OneWay}"/>
+                                                    <DatePicker Name="dateNgaynhap" 
+                                                                Background="#EEEEEE"
+                                                                Margin="5"
+                                                                Text="{Binding ElementName=Data, 
+                                                                        Path=SelectedItem.NgayNhap,
+                                                                        Mode=OneWay}"/>
+                                                    <TextBox x:Name="txtDonGia" 
+                                                             Background="#EEEEEE" 
+                                                             Foreground="Black"  
+                                                             BorderBrush="Black" 
+                                                             Margin="5" 
+                                                             Text="{Binding ElementName=Data, 
+                                                                    Path=SelectedItem.DonGia, 
+                                                                    Mode=OneWay}"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </GroupBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Hóa Đơn" 
+                             Background="CornflowerBlue"
+                             Height="40" 
+                             Width="100">
+                        <Grid>
+
+                            <TabControl TabStripPlacement="Top"
+                                        BorderBrush="Blue" 
+                                        Margin="10">
+                                <TabItem Header="Hóa Đơn Nhập Hàng" 
+                                         Height="25" Foreground="Black"
+                                         ToolTip="Hóa Đơn Nhập Hàng" 
+                                         Background="#CCCCFF">
+                                    <Grid>
+                                        <Image Source=
+                                               "F:\Visual studio 2019\HangHoa\HangHoa\Resources\nenxanh.jpg" 
+                                               Stretch="Fill"/>
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal" 
+                                                        Margin="10">
+                                                <Button Content="Xóa" 
+                                                        Name="btnXoa_HoaDonNhap" 
+                                                        Width="80"
+                                                        Margin="100 0 0 0" 
+                                                        Click="btnXoa_HoaDonNhap_Click"/>
+                                                <ComboBox x:Name="cboTenNVNhap_Timkiem" 
+                                                          Margin="100 0 0 0"
+                                                          materialDesign:HintAssist.Hint="Tên nhân viên" 
+                                                          Background="#EEEEEE"
+                                                          Text="{Binding ElementName=DataHoaDonNhap, 
+                                                                    Path=SelectedItem.TenNhanVien, 
+                                                                    Mode=OneWay}"/>
+                                                <DatePicker x:Name="date_tim_NhapHang" 
+                                                            Margin="30 0 0 0" 
+                                                            materialDesign:HintAssist.Hint="Ngày tạo" 
+                                                            Background="#EEEEEE"
+                                                            Text="{Binding ElementName=DataHoaDonNhap, 
+                                                                    Path=SelectedItem.NgayNhap, 
+                                                                    Mode=OneWay}"/>
+                                                <Button x:Name="btnTim_HoaDonNhap" 
+                                                        Content="Lọc" 
+                                                        Width="108" 
+                                                        Margin="50 0 0 0" 
+                                                        Click="btnTim_HoaDonNhap_Click"/>
+                                                <TextBox x:Name="txtmaHD_Nhap" 
+                                                         Text="{Binding ElementName=DataHoaDonNhap,
+                                                                Path=SelectedItem.MaHoaDon, 
+                                                                Mode=OneWay}"
+                                                         Width="100" 
+                                                         Margin="10 0" 
+                                                         Visibility="Hidden"/>
+                                            </StackPanel>
+                                            <DataGrid Name="DataHoaDonNhap" 
+                                                      FontSize="10"
+                                                      Height="250" 
+                                                      AutoGenerateColumns="False" 
+                                                      Margin="20 20">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Mã Hóa Đơn"  
+                                                                        Binding="{Binding MaHoaDon, 
+                                                                                  Mode=Default}"/>
+                                                    <DataGridTextColumn Header="Ngày Tạo"  
+                                                                        Binding="{Binding NgayNhap, 
+                                                                                  Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Tên Nhân Viên Tạo" 
+                                                                        Binding="{Binding TenNhanVien,
+                                                                                  Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Mã Sản Phẩm" 
+                                                                        Binding="{Binding MaSanPham , 
+                                                                                  Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Tên Sản Phẩm"  
+                                                                        Binding="{Binding TenSanPham,
+                                                                                  Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Số Luong" 
+                                                                        Binding="{Binding SoLuong,
+                                                                                  Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Đơn Giá" 
+                                                                        Binding="{Binding DonGia,
+                                                                                  Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Mã Công Ty"  
+                                                                        Binding="{Binding MaCongTy, 
+                                                                                  Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Thành tiền"  
+                                                                        Binding="{Binding ThanhTien, 
+                                                                                  Mode=OneWay}"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Button x:Name="btnLoadNhap" 
+                                                    Content="Load" 
+                                                    Margin="20 0" 
+                                                    ToolTip="Load" 
+                                                    Click="btnLoadNhap_Click"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </TabItem>
+                                <TabItem Header="Hóa Đơn Xuất Hàng"
+                                         Background="#CCCCFF">
+                                    <Grid>
+                                        <Image Source=
+                                               "F:\Visual studio 2019\HangHoa\HangHoa\Resources\nenxanh.jpg" 
+                                               Stretch="Fill"/>
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal" 
+                                                        Margin="10">
+                                                <Button Content="Xóa" 
+                                                        Name="btnXoa_HoaDonXuat" 
+                                                        Width="80" 
+                                                        Margin="100 0 0 0"
+                                                        Click="btnXoa_HoaDonXuat_Click"/>
+                                                <ComboBox x:Name="cboTenNVXuat_TimKiem" 
+                                                          Margin="100 0 0 0" 
+                                                          materialDesign:HintAssist.Hint="Tên nhân viên" 
+                                                          Background="#EEEEEE"
+                                                          Text="{Binding ElementName=DataHoaDonXuat,
+                                                                    Path=SelectedItem.TenNhanVien, 
+                                                                    Mode=OneWay}"/>
+                                                <DatePicker x:Name="date_tim_Xuathang" 
+                                                            Width="100" Margin="30 0 0 0" 
+                                                            materialDesign:HintAssist.Hint="Ngày tạo"
+                                                            Background="#EEEEEE"
+                                                            Text="{Binding ElementName=DataHoaDonXuat, 
+                                                                    Path=SelectedItem.NgayNhap, 
+                                                                    Mode=OneWay}"/>
+                                                <Button x:Name="btnTim_HoaDonXuat" 
+                                                        Content="Lọc" Width="108" 
+                                                        Margin="50 0 0 0" 
+                                                        Click="btnTim_HoaDonXuat_Click"/>
+                                                <TextBox x:Name="txtmaHD_xuat" 
+                                                         Text="{Binding ElementName=DataHoaDonXuat, 
+                                                                Path=SelectedItem.MaHoaDon, 
+                                                                Mode=OneWay}" 
+                                                         Width="100" 
+                                                         Margin="10 0" 
+                                                         Visibility="Hidden"/>
+                                            </StackPanel>
+                                            <DataGrid Name="DataHoaDonXuat"
+                                                      FontSize="10"
+                                                      Height="250" 
+                                                      AutoGenerateColumns="False" 
+                                                      Margin="20">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Mã Hóa Đơn"  
+                                                                        Binding="{Binding MaHoaDon, 
+                                                                                    Mode=Default}"/>
+                                                    <DataGridTextColumn Header="Mã Nhân viên"  
+                                                                        Binding="{Binding MaNhanVien, 
+                                                                                    Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Tên Nhân Viên" 
+                                                                        Binding="{Binding TenNhanVien,
+                                                                                    Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Mã Sản Phẩm"
+                                                                        Binding="{Binding MaSanPham, 
+                                                                                    Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Tên Sản Phẩm"  
+                                                                        Binding="{Binding TenSanPham,
+                                                                                    Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Ngày Tạo"
+                                                                        Binding="{Binding NgayNhap, 
+                                                                                    Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Số Lượng" 
+                                                                        Binding="{Binding SoLuong,
+                                                                                    Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Đơn Giá" 
+                                                                        Binding="{Binding DonGia,
+                                                                                    Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Mã KhachHang" 
+                                                                        Binding="{Binding MaKhachHang,
+                                                                                    Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Thành Tiền"  
+                                                                        Binding="{Binding ThanhTien,
+                                                                        Mode=OneWay}"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                            <Button x:Name="btnLoadXuat"
+                                                    Content="Load" 
+                                                    ToolTip="Làm mới" 
+                                                    Click="btnLoadXuat_Click" 
+                                                    Margin="20 0"/>
+                                        </StackPanel>
+                                    </Grid>
+                                </TabItem>
+                            </TabControl>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Đối tác"
+                             Background="CornflowerBlue"
+                             HorizontalAlignment="Right"  
+                             Height="40" 
+                             Width="100">
+                        <TabControl>
+                            <TabItem Header="Nhà phân phối" 
+                                     Height="25" 
+                                     Width="150" 
+                                     Background="#CCCCFF">
+                                <Grid>
+                                    <Image Source=
+                                           "F:\Visual studio 2019\HangHoa\HangHoa\Resources\nenxanh.jpg" 
+                                           Stretch="Fill"/>
+                                    <StackPanel Orientation="Vertical"
+                                                Margin="10">
+                                        <StackPanel Margin="10" 
+                                                    Orientation="Horizontal">
+                                            <Button x:Name="btnLoadDoiTac" 
+                                                    Content="Làm mới" 
+                                                    Width="100" 
+                                                    HorizontalAlignment="Left" 
+                                                    Margin="40 0 0 0"
+                                                    Background="CornflowerBlue" 
+                                                    Foreground="Black" 
+                                                    Click="btnLoadDoiTac_Click"/>
+                                            <Button x:Name="btnXoaDoiTac" 
+                                                    Content="Xóa" 
+                                                    Width="100"
+                                                    HorizontalAlignment="Left"
+                                                    Margin="60 0 0 0"
+                                                    Background="CornflowerBlue" 
+                                                    Foreground="Black" 
+                                                    Click="btnXoaDoiTac_Click"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="10" 
+                                                    Orientation="Horizontal" >
+                                            <StackPanel>
+                                                <DataGrid x:Name="DataDoiTac"
+                                                          FontSize="10"
+                                                          Width="500" 
+                                                          Height="310"
+                                                          AutoGenerateColumns="False" 
+                                                          Margin="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Mã công ty"  
+                                                                            Binding="{Binding MaCongTy}" 
+                                                                            Width="130"/>
+                                                        <DataGridTextColumn Header="Tên công ty" 
+                                                                            Binding="{Binding TenCongTy, 
+                                                                                        Mode=OneWay}"/>
+                                                        <DataGridTextColumn Header="Địa chỉ"
+                                                                            Binding="{Binding DiaChi, 
+                                                                                        Mode=OneWay}"/>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </StackPanel>
+                                            <StackPanel Margin="50 10 0 0">
+                                                <GroupBox>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <StackPanel>
+                                                            <TextBlock Text="Thông tin công ty"
+                                                                       FontSize="25"
+                                                                       HorizontalAlignment="Center"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Vertical">
+                                                            <StackPanel>
+                                                                <TextBox x:Name="txtMaCongTy"
+                                                                         materialDesign:HintAssist.Hint="Nhập mã công ty" 
+                                                                         Margin="10" 
+                                                                         ToolTip="Nhập mã công ty"
+                                                                         Foreground="Black" 
+                                                                         Width="250" 
+                                                                         BorderBrush="Black" 
+                                                                         Text="{Binding ElementName=DataDoiTac,
+                                                                                Path=SelectedItem.MaCongTy,
+                                                                                Mode=OneWay}"/>
+                                                                <TextBox x:Name="txtTenCongTy" 
+                                                                         materialDesign:HintAssist.Hint="Nhập Tên công ty" 
+                                                                         Margin="10" 
+                                                                         ToolTip="Nhập trên công ty"
+                                                                         Foreground="Black"
+                                                                         Width="250" 
+                                                                         BorderBrush="Black" 
+                                                                         Text="{Binding ElementName=DataDoiTac, 
+                                                                                Path=SelectedItem.TenCongTy, 
+                                                                                Mode=OneWay}"/>
+                                                                <TextBox x:Name="txtDiaChi"
+                                                                         materialDesign:HintAssist.Hint="Nhập địa chỉ" 
+                                                                         Margin="10" ToolTip="Nhập địa chỉ"
+                                                                         Foreground="Black" 
+                                                                         Width="250" 
+                                                                         BorderBrush="Black"/>
+                                                            </StackPanel>
+                                                            <StackPanel>
+                                                                <Button x:Name="btnThemCongTy" 
+                                                                        Content="Thêm" 
+                                                                        Margin="20" 
+                                                                        Width="80" 
+                                                                        HorizontalAlignment="Right" 
+                                                                        Click="btnThemCongTy_Click"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </GroupBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </TabItem>
+                            <TabItem Header="Khách hàng" 
+                                     Width="150" 
+                                     Background="#CCCCFF">
+                                <Grid>
+                                    <Image Source=
+                                           "F:\Visual studio 2019\HangHoa\HangHoa\Resources\nenxanh.jpg" 
+                                           Stretch="Fill"/>
+                                    <StackPanel Orientation="Vertical" 
+                                                Margin="10">
+                                        <StackPanel Margin="10" 
+                                                    Orientation="Horizontal">
+                                            <Button x:Name="btnLoad_KhachHang" 
+                                                    Content="Làm mới"
+                                                    Width="100"
+                                                    HorizontalAlignment="Left" 
+                                                    Margin="40 0 0 0"
+                                                    Background="CornflowerBlue" 
+                                                    Foreground="Black" 
+                                                    Click="btnLoad_KhachHang_Click"/>
+                                            <Button x:Name="btnXoa_KhachHang" 
+                                                    Content="Xóa"
+                                                    Width="100" 
+                                                    HorizontalAlignment="Left" 
+                                                    Margin="60 0 0 0" 
+                                                    Background="CornflowerBlue" 
+                                                    Foreground="Black"
+                                                    Click="btnXoa_KhachHang_Click"/>
+                                            <TextBox x:Name="test_de_them" 
+                                                     Margin="20 0 0 0"                                                     
+                                                     Visibility="Hidden"
+                                                     Text="{Binding ElementName=DataKhachHang, 
+                                                        Path=SelectedItem.MaKhachHang,
+                                                        Mode=OneWay}"/>
+                                        </StackPanel>
+                                        <StackPanel Margin="10"
+                                                    Orientation="Horizontal" >
+                                            <StackPanel>
+                                                <DataGrid x:Name="DataKhachHang"
+                                                          FontSize="10"
+                                                          Width="500"
+                                                          Height="310"
+                                                          AutoGenerateColumns="False"
+                                                          Margin="10">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Mã khách hàng"  
+                                                                            Binding="{Binding MaKhachHang}"/>
+                                                        <DataGridTextColumn Header="Tên khách hàng" 
+                                                                            Binding="{Binding TenKhachHang, 
+                                                                                        Mode=OneWay}"/>
+                                                        <DataGridTextColumn Header="Địa chỉ" 
+                                                                            Binding="{Binding DiaChi, 
+                                                                                        Mode=OneWay}"/>
+                                                    </DataGrid.Columns>
+                                                </DataGrid>
+                                            </StackPanel>
+                                            <StackPanel Margin="50 10 0 0">
+                                                <GroupBox>
+                                                    <StackPanel Orientation="Vertical">
+                                                        <StackPanel>
+                                                            <TextBlock Text="Thông tin khách hàng" 
+                                                                       FontSize="25" 
+                                                                       HorizontalAlignment="Center"/>
+                                                        </StackPanel>
+                                                        <StackPanel Orientation="Vertical">
+                                                            <StackPanel>
+                                                                <TextBox x:Name="txtMaKhachHang"
+                                                                         materialDesign:HintAssist.Hint="Nhập mã khách hàng"
+                                                                         Margin="10"
+                                                                         ToolTip="Mã khách hàng"
+                                                                         Foreground="Black" 
+                                                                         Width="250"
+                                                                         BorderBrush="Black" 
+                                                                         Text="{Binding ElementName=DataKhachHang,
+                                                                                Path=SelectedItem.MaKhachHang}"/>
+                                                                <TextBox x:Name="txtTenKhachHang" 
+                                                                         materialDesign:HintAssist.Hint="Nhập Tên khách hàng"
+                                                                         Margin="10" ToolTip="Tên khách hàng"
+                                                                         Foreground="Black" 
+                                                                         Width="250" 
+                                                                         BorderBrush="Black" 
+                                                                         Text="{Binding ElementName=DataKhachHang, 
+                                                                                Path=SelectedItem.TenKhachHang, 
+                                                                                Mode=OneWay}"/>
+                                                                <TextBox x:Name="txtDiaChi_KhachHang"
+                                                                         materialDesign:HintAssist.Hint="Nhập địa chỉ"
+                                                                         Margin="10" 
+                                                                         ToolTip="Nhập địa chỉ"
+                                                                         Foreground="Black" 
+                                                                         Width="250" 
+                                                                         BorderBrush="Black"/>
+                                                            </StackPanel>
+                                                            <StackPanel>
+                                                                <Button x:Name="btnThemKhachHang" 
+                                                                        Content="Thêm" 
+                                                                        Margin="20" 
+                                                                        Width="80" 
+                                                                        HorizontalAlignment="Right" 
+                                                                        Click="btnThemKhachHang_Click"/>
+                                                            </StackPanel>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </GroupBox>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </TabItem>
+                    <TabItem Header="Nhân Viên" 
+                             Background="CornflowerBlue" 
+                             HorizontalAlignment="Right"  
+                             Height="40" 
+                             Width="100">
+                        <Grid>
+                            <Image Source=
+                                   "F:\Visual studio 2019\HangHoa\HangHoa\Resources\nenxanh.jpg" 
+                                   Stretch="Fill"/>
+                            <StackPanel 
+                                Orientation="Vertical"                               
+                                Grid.ColumnSpan="2">
+                                <StackPanel Margin="10" 
+                                            Orientation="Horizontal">
+                                    <Button x:Name="btnLoadNhanVien" 
+                                            Content="Làm mới" 
+                                            Width="100" 
+                                            Margin="40 0 0 0" 
+                                            Background="CornflowerBlue" 
+                                            Foreground="Black" 
+                                            Click="btnLoadNhanVien_Click"/>
+                                    <Button x:Name="btnXoaNhanVien" 
+                                            Content="Xóa" 
+                                            Width="100" 
+                                            Margin="60 0 0 0" 
+                                            Background="CornflowerBlue" 
+                                            Foreground="Black" 
+                                            Click="btnXoaNhanVien_Click"/>
+                                </StackPanel>
+                                <StackPanel Margin="10" 
+                                            Orientation="Horizontal" >
+                                    <StackPanel>
+                                        <DataGrid Name="DataNhanVien"
+                                                  FontSize="10" 
+                                                  Width="500" 
+                                                  Height="310" 
+                                                  AutoGenerateColumns="False"  
+                                                  Margin="10">
+                                            <DataGrid.Columns>
+                                                <DataGridTextColumn Header="Mã nhân viên"  
+                                                                    Binding="{Binding MaNhanVien, 
+                                                                                Mode=OneWay}" 
+                                                                    Width="130"/>
+                                                <DataGridTextColumn Header="Tên nhân viên"
+                                                                    Binding="{Binding TenNhanVien,
+                                                                                Mode=OneWay}" 
+                                                                    Width="130"/>
+                                                <DataGridTextColumn Header="Tên Đăng Nhập" 
+                                                                    Binding="{Binding TenDangNhap,
+                                                                                Mode=OneWay}"
+                                                                    Width="130"/>
+                                            </DataGrid.Columns>
+                                        </DataGrid>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" Margin="50 0 0 0">
+                                        <StackPanel>
+                                            <TextBlock Text="Thêm Nhân Viên"
+                                                       FontSize="25"
+                                                       HorizontalAlignment="Center"
+                                                       ToolTip="Thêm thông tin nhân viên"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel>
+                                                <TextBox x:Name="txtMaNhanVien"
+                                                         materialDesign:HintAssist.Hint="Nhập mã nhân viên" 
+                                                         Margin="10" 
+                                                         ToolTip="Mã nhân viên"
+                                                         Foreground="Black" 
+                                                         Width="250" 
+                                                         BorderBrush="Black"
+                                                         Text="{Binding ElementName=DataNhanVien, 
+                                                                Path=SelectedItem.MaNhanVien, 
+                                                                Mode=OneWay}"/>
+                                                <TextBox x:Name="txtTenNhanVien" 
+                                                         materialDesign:HintAssist.Hint="Nhập Tên Nhân Viên"
+                                                         Margin="10" 
+                                                         ToolTip=" Tên nhân viên"
+                                                         Foreground="Black" 
+                                                         Width="250"
+                                                         BorderBrush="Black" 
+                                                         Text="{Binding ElementName=DataNhanVien, 
+                                                                Path=SelectedItem.TenNhanVien,
+                                                                Mode=OneWay}"/>
+                                                <TextBox x:Name="txtTenDangNhap"
+                                                         materialDesign:HintAssist.Hint="Nhập Tên Đăng Nhập"
+                                                         Margin="10"
+                                                         ToolTip="Tên đăng nhập"
+                                                         Foreground="Black"
+                                                         Width="250" 
+                                                         BorderBrush="Black" 
+                                                         Text="{Binding ElementName=DataNhanVien, 
+                                                                Path=SelectedItem.TenDangNhap, 
+                                                                Mode=OneWay}"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical">
+                                                <Button x:Name="btnThemNhanVien" 
+                                                        Content="Thêm" Margin="20" 
+                                                        Width="200" HorizontalAlignment="Center"
+                                                        Click="btnThemNhanVien_Click"/>
+                                                <Button x:Name="btnDangKy_tendangnhap"
+                                                        Content="Đăng ký tài khoản" 
+                                                        Margin="10 0 0 10" 
+                                                        Width="150"
+                                                        Height="30" 
+                                                        HorizontalAlignment="Center" 
+                                                        Click="btnDangKy_tendangnhap_Click"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>                                
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Thống Kê"
+                             Background="CornflowerBlue" 
+                             HorizontalAlignment="Right"  
+                             Height="40" 
+                             Width="100">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10">
+                                <TextBlock Text="Từ ngày"
+                                           Margin="0 5 10 0"/>
+                                <DatePicker Width="150"
+                                            Name="Date_ThongKe1"
+                                         Margin="20 0 0 0"/>
+                                <TextBlock Text="Đến ngày"
+                                           Margin="20 5 10 0"/>
+                                <DatePicker Width="150"
+                                            Name="Date_ThongKe2"
+                                         Margin="20 0 0 0"/>
+                                <Button x:Name="btn_Loc_ThongKe"
+                                        Content="Lọc"
+                                        Margin="50 0 0 0"
+                                        Width="100"
+                                        Background="Bisque" 
+                                        Click="btn_Loc_ThongKe_Click"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="10">
+                                <TabControl Height="382" >
+                                    <TabItem Header="Thống kê Nhập hàng">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBox Name="txt_ThongKeNhapHang" 
+                                                        materialDesign:HintAssist.Hint="Nhập Tên sản phẩm" 
+                                                        Margin="10"
+                                                        Width="170"/>
+                                                <Button x:Name="btn_Tim_Thongke_Nhaphang" 
+                                                    Content="Tìm Kiếm" 
+                                                    Background="Bisque"
+                                                    Foreground="Black" 
+                                                    Margin="50 0" 
+                                                    Click="btn_Tim_Thongke_Nhaphang_Click"/>
+                                                <Button x:Name="btn_LamMoi_thongKe"
+                                                    Content="Làm mới"
+                                                    Margin="200 5 "
+                                                    Width="100"
+                                                    Background="Bisque" 
+                                                    Click="btn_LamMoi_thongKe_Click"/>
+                                            </StackPanel>                                            
+                                            <DataGrid x:Name="Data_ThongKeHangNhap"
+                                                      DockPanel.Dock="Bottom"  
+                                                      AutoGenerateColumns="False" 
+                                                      Width="930" 
+                                                      Height="300">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Mã sản phẩm"  
+                                                                        Binding="{Binding MaSanPham, Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Tên sản phẩm"  
+                                                                        Binding="{Binding TenSanPham, Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Số lượng"  
+                                                                        Binding="{Binding SoLuong, Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Đơn Giá"  
+                                                                        Binding="{Binding DonGia, Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Ngày nhập" 
+                                                                        Binding="{Binding NgayNhap,
+                                                                        StringFormat='dd/MM/yyyy', Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Thành Tiền" 
+                                                                        Binding="{Binding ThanhTien, Mode=OneWay}"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </TabItem>
+                                    <TabItem Header="Thống kê Xuất hàng">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBox Name="txt_ThongKeXuatHang" 
+                                                        materialDesign:HintAssist.Hint="Nhập Tên sản phẩm" 
+                                                        Margin="10"
+                                                        Width="170"/>
+                                                <Button x:Name="btn_Tim_Thongke_Xuathang" 
+                                                    Content="Tìm Kiếm" 
+                                                    Background="Bisque"
+                                                    Foreground="Black" 
+                                                    Margin="50 0" 
+                                                    Click="btn_Tim_Thongke_Xuathang_Click"/>
+                                                <Button x:Name="btn_LamMoi_thongKe_XuatHang"
+                                                    Content="Làm mới"
+                                                    Margin="200 5 "
+                                                    Width="100"
+                                                    Background="Bisque" 
+                                                    Click="btn_LamMoi_thongKe_XuatHang_Click"/>
+                                            </StackPanel>
+                                            <DataGrid x:Name="Data_ThongKeHangXuat"
+                                                      DockPanel.Dock="Bottom"  
+                                                      AutoGenerateColumns="False" 
+                                                      Width="930" 
+                                                      Height="300">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Mã sản phẩm"  
+                                                                        Binding="{Binding MaSanPham, Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Tên sản phẩm"  
+                                                                        Binding="{Binding TenSanPham, Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Số lượng"  
+                                                                        Binding="{Binding SoLuong, Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Đơn Giá"  
+                                                                        Binding="{Binding DonGia, Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Ngày nhập" 
+                                                                        Binding="{Binding NgayNhap,
+                                                                        StringFormat='dd/MM/yyyy', Mode=OneWay}"/>
+                                                    <DataGridTextColumn Header="Thành Tiền" 
+                                                                        Binding="{Binding ThanhTien, Mode=OneWay}"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </StackPanel>
+                                    </TabItem>
+                                </TabControl>                                              
+                            </StackPanel>                                                                              
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
+</Window>
